@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 // application route
-app.use('/api/products', ProductRoutes)
+app.use('/api/products', ProductRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello from home route!');
