@@ -8,7 +8,7 @@ export interface Inventory {
     inStock: boolean;
 }
 
-export type product = {
+export type Product = {
     name: string;
     description: string;
     price: number;
