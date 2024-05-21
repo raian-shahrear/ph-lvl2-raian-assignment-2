@@ -42,7 +42,7 @@ const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-// get single product using id
+// get single product by id
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -63,7 +63,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
   }
 };
 
-// update a product using id
+// update a product by id
 const updateProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -88,9 +88,31 @@ const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
+// delete a product by id
+const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductServices.deleteProductFromDB(productId);
+
+    // send response
+    res.status(200).json({
+      success: true,
+      message: 'Product is deleted successfully!',
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong!',
+      error,
+    });
+  }
+};
+
 export const ProductController = {
   createProduct,
   getAllProducts,
   getSingleProduct,
   updateProduct,
+  deleteProduct,
 };
