@@ -33,6 +33,7 @@ const updateProductIntoDB = async (id: string, productDoc: any) => {
   const result = await ProductModel.findOneAndUpdate(
     { _id: id },
     { $set: productDoc },
+    { new: true },
   );
   return result;
 };

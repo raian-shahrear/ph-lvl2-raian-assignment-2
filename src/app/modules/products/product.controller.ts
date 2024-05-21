@@ -1,11 +1,25 @@
 import { Request, Response } from 'express';
 import { ProductServices } from './product.service';
+import {
+  productUpdateValidationSchema,
+  productValidationSchema,
+} from './product.validation';
 
 // create product
 const createProduct = async (req: Request, res: Response) => {
   try {
     const { product: productData } = req.body;
-    const result = await ProductServices.createProductIntoDB(productData);
+
+    // validate data using Joi
+    const { error, value } = productValidationSchema.validate(productData);
+    if (error) {
+      res.status(500).json({
+        success: false,
+        error: error.details[0].message,
+      });
+      return;
+    }
+    const result = await ProductServices.createProductIntoDB(value);
 
     // send response
     res.status(200).json({
@@ -73,10 +87,17 @@ const updateProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const productDoc = req.body;
-    const result = await ProductServices.updateProductIntoDB(
-      productId,
-      productDoc,
-    );
+
+    // validate data using Joi
+    const { error, value } = productUpdateValidationSchema.validate(productDoc);
+    if (error) {
+      res.status(500).json({
+        success: false,
+        error: error.details[0].message,
+      });
+      return;
+    }
+    const result = await ProductServices.updateProductIntoDB(productId, value);
 
     // send response
     res.status(200).json({
