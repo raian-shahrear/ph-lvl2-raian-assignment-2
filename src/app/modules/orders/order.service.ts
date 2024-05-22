@@ -67,6 +67,12 @@ const createOrderIntoDB = async (order: Order) => {
 
 // get all order
 const getAllOrderFromDB = async (email: string) => {
+  // get all data
+  if (!email) {
+    const result = await OrderModel.find();
+    return result;
+  }
+  // get searched data
   const searchQuery = { email: email };
   const result = await OrderModel.find(searchQuery);
   return result;
