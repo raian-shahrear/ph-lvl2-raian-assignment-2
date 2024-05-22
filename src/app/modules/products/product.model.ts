@@ -1,28 +1,34 @@
 import { Schema, model } from 'mongoose';
 import { Inventory, Product, Variant } from './product.interface';
 
-const variantSchema = new Schema<Variant>({
-  type: {
-    type: String,
-    required: [true, 'Product variant type is required'],
+const variantSchema = new Schema<Variant>(
+  {
+    type: {
+      type: String,
+      required: [true, 'Product variant type is required'],
+    },
+    value: {
+      type: String,
+      required: [true, 'Product variant value is required'],
+    },
   },
-  value: {
-    type: String,
-    required: [true, 'Product variant value is required'],
-  },
-});
+  { _id: false },
+);
 
-const inventorySchema = new Schema<Inventory>({
-  quantity: {
-    type: Number,
-    trim: true,
-    required: [true, 'Product quantity is required'],
+const inventorySchema = new Schema<Inventory>(
+  {
+    quantity: {
+      type: Number,
+      trim: true,
+      required: [true, 'Product quantity is required'],
+    },
+    inStock: {
+      type: Boolean,
+      required: [true, 'Product stock status is required'],
+    },
   },
-  inStock: {
-    type: Boolean,
-    required: [true, 'Product stock status is required'],
-  },
-});
+  { _id: false },
+);
 
 const productSchema = new Schema<Product>({
   name: {

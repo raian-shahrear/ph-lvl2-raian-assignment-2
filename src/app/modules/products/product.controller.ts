@@ -13,11 +13,10 @@ const createProduct = async (req: Request, res: Response) => {
     // validate data using Joi
     const { error, value } = productValidationSchema.validate(productData);
     if (error) {
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
         error: error.details[0].message,
       });
-      return;
     }
     const result = await ProductServices.createProductIntoDB(value);
 
