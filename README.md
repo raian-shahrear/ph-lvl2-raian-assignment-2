@@ -9,3 +9,6 @@
 #### To create and get data, use: "/api/orders"
 #### To get data by querying with email, use: "/api/orders?email=your_email"
 
+
+### Live link:
+#### https://ecommerce-backend-tem.vercel.app/
