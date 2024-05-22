@@ -65,6 +65,14 @@ const createOrderIntoDB = async (order: Order) => {
   }
 };
 
+// get all order
+const getAllOrderFromDB = async (email: string) => {
+  const searchQuery = { email: email };
+  const result = await OrderModel.find(searchQuery);
+  return result;
+};
+
 export const OrderServices = {
   createOrderIntoDB,
+  getAllOrderFromDB,
 };

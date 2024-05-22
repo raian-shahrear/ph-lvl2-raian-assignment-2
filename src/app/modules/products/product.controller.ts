@@ -8,7 +8,7 @@ import {
 // create product
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const { product: productData } = req.body;
+    const productData = req.body;
 
     // validate data using Joi
     const { error, value } = productValidationSchema.validate(productData);
