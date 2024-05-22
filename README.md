@@ -9,6 +9,8 @@
 #### To create and get data, use: "/api/orders"
 #### To get data by querying with email, use: "/api/orders?email=your_email"
 
+## Setup .env file:
+#### PORT=5000
+#### DATABASE_URL= mongodb
 
-### Live link:
-#### https://ecommerce-backend-tem.vercel.app/
+### Live link: https://ecommerce-backend-tem.vercel.app/
