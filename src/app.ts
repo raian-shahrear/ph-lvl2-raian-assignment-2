@@ -16,4 +16,12 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello from home route!');
 });
 
+// route error
+app.all('*', (req: Request, res: Response) => {
+  res.status(400).json({
+    success: false,
+    message: 'Router is not found!',
+  });
+});
+
 export default app;

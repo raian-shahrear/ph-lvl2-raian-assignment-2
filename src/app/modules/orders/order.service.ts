@@ -10,7 +10,7 @@ const createOrderIntoDB = async (order: Order) => {
   if (!matchedProduct) {
     return {
       success: false,
-      message: 'The given ProductId does not exist',
+      message: 'The given ProductId does not exist!',
     };
   }
   // checking product is inStock or not
@@ -20,7 +20,7 @@ const createOrderIntoDB = async (order: Order) => {
   ) {
     return {
       success: false,
-      message: 'Out of stock',
+      message: 'Out of stock!',
     };
   }
   // checking ordered quantity is zero or not
@@ -33,8 +33,8 @@ const createOrderIntoDB = async (order: Order) => {
       success: false,
       message:
         order.quantity == 0
-          ? "Order quantity can't be zero"
-          : 'Order quantity exceeds available inventory',
+          ? "Ordered quantity can't be zero!"
+          : `Insufficient quantity available in inventory where current quantity is ${matchedProduct.inventory.quantity}!`,
     };
   } else {
     // create a order
@@ -70,12 +70,26 @@ const getAllOrderFromDB = async (email: string) => {
   // get all data
   if (!email) {
     const result = await OrderModel.find();
-    return result;
+    return {
+      success: true,
+      data: result,
+    };
   }
   // get searched data
   const searchQuery = { email: email };
   const result = await OrderModel.find(searchQuery);
-  return result;
+
+  if (result.length === 0) {
+    return {
+      success: false,
+      message: 'Order is not found!',
+    };
+  } else {
+    return {
+      success: true,
+      data: result,
+    };
+  }
 };
 
 export const OrderServices = {

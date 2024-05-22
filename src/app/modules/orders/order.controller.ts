@@ -54,7 +54,14 @@ const getAllOrder = async (req: Request, res: Response) => {
         error: error.details[0].message,
       });
     }
-    const result = await OrderServices.getAllOrderFromDB(value.email as string);
+    const result = await OrderServices.getAllOrderFromDB(value.email);
+
+    if (!result.success) {
+      return res.status(500).json({
+        success: false,
+        errorMessage: result?.message,
+      });
+    }
 
     // send response
     res.status(200).json({
@@ -62,7 +69,7 @@ const getAllOrder = async (req: Request, res: Response) => {
       message: email
         ? `Orders is fetched successfully for email: ${email}!`
         : 'Order is fetched successfully!',
-      data: result,
+      data: result?.data,
     });
   } catch (error) {
     res.status(500).json({
